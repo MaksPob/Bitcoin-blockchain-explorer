@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+@media screen and (max-width: 480px) {
+  .main {
+    padding-left: 0px;
+    padding-right: 0px;
+    flex-direction: column;
+  }
+}

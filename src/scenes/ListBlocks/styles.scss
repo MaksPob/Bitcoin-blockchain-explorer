@@ -1,0 +1,30 @@
+.listBlocks {
+  & > .listBlocks__pagination {
+    display: flex;
+    justify-content: center;
+    & > .listBlocks__pagination-back {
+      display: flex;
+      & > button {
+        border: none;
+      }
+    }
+    & > .listBlocks__pagination-next {
+      display: flex;
+      & > button {
+        border: none;
+      }
+    }
+  }
+  & > .listBlocks__blocks > .listBlocks__block > table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+}
+
+
+
+@media screen and (max-width: 480px) {
+  .listBlocks > .listBlocks__blocks > .listBlocks__block > table {
+    table-layout: fixed; // убирать хэш и сделать ховеры
+  }
+}

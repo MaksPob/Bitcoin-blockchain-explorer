@@ -1,0 +1,2 @@
+const ADD_RATE = "ADD_RATE";
+const RATE_AND_BLOCKS = "RATE_AND_BLOCKS";

@@ -1,0 +1,120 @@
+@mixin navbarElementsPosition {
+  margin-left: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgb(0, 52, 87);
+  display: none;
+}
+
+@mixin navbarSearch {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgb(0, 52, 87);
+  & > button {
+    background-color: rgb(0, 77, 128);
+    border: none;
+    cursor: pointer;
+  }
+  & > button > i {
+    color: white;
+  }
+  & > .search__input {
+    background-color: rgb(0, 77, 128);
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+    width: 200px;
+    margin-left: 10px;
+  }
+}
+
+
+@mixin navbarBtnChart {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgb(0, 52, 87);
+  & > a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+
+.navbar {
+  display: flex;
+  background-color: rgb(0, 77, 128);
+  justify-content: flex-start;
+  padding: 20px 40px;
+  & > .navbar__btnChart {
+    margin-left: 30px;
+    & > a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+  & > .navbar__logo {
+    color: white;
+    font-weight: bold;
+    display: flex;
+    & > div {
+      display: none;
+    }
+  }
+  & > .navbar__search {
+    margin-left: 30px;
+    & > button {
+      background-color: rgb(0, 77, 128);
+      border: none;
+      cursor: pointer;
+    }
+    & > button > i {
+      color: white;
+    }
+    & > .search__input {
+      background-color: rgb(0, 77, 128);
+      border: none;
+      border-bottom: 2px solid white;
+      color: white;
+      width: 200px;
+      margin-left: 10px;
+    }
+  }
+}
+
+
+
+@media screen and (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    & > .navbar__logo {
+      text-align: center;
+      padding-bottom: 3px;
+      justify-content: space-between;
+      & > div {
+        display: block;
+        & > button {
+          background-color: rgb(0, 77, 128);
+        }
+        & > button > i {
+          color: white;
+        }
+      } 
+    }
+    & > .navbar__btnChart {
+      @include navbarElementsPosition;
+    }
+    & > .navbar__search {
+      @include navbarElementsPosition;
+    }
+  }
+}
+
+
+
+.navbar__btnChart_visible {
+  @include navbarBtnChart;
+}
+
+.navbar__search_visible {
+  @include navbarSearch;
+}
