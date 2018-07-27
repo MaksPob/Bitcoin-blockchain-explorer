@@ -9,7 +9,6 @@ import { isString } from '../../utils/validation';
 import { getListBlocks } from '../../redux/actions/blocks';
 
 class Header extends Component {
-
   state = {
     height: '',
     hash:'',
@@ -17,12 +16,12 @@ class Header extends Component {
     toggleBar: false
   };
   
-  changeToggle = () => {
+  changeSearchState = () => {
     const { toggleSearch } = this.state;
     toggleSearch ? this.setState({ toggleSearch: false }) : this.setState({ toggleSearch: true });
   };
 
-  changeBar = () => {
+  changeBarState = () => {
     const { toggleBar } = this.state;
     toggleBar ? this.setState({ toggleBar: false }) : this.setState({ toggleBar: true });
   };
@@ -43,7 +42,7 @@ class Header extends Component {
         <header className = "navbar">
           <div className = "navbar__logo">BLOCKCHAIN
             <div>
-              <button onClick={() => this.changeBar()}>
+              <button onClick={() => this.changeBarState()}>
                 <i className="fa fa-bars" aria-hidden="true"></i>
               </button>
             </div>
@@ -55,7 +54,7 @@ class Header extends Component {
             <Link to='/listBlocks' onClick={() => getListBlocks()}>List blocks</Link>
           </div>
           <div className={toggleBar ? "navbar__search_visible" : "navbar__search"}>
-            <button onClick={() => this.changeToggle()}><i className="fa fa-search" aria-hidden="true"></i></button>
+            <button onClick={() => this.changeSearchState()}><i className="fa fa-search" aria-hidden="true"></i></button>
             { this.state.toggleSearch &&
               <input
                   className = "search__input"

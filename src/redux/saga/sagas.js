@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import { saveRate } from '../actions/rate';
-import { saveBlocks, saveBlockNowDay } from '../actions/blocks';
+import { saveBlocks, saveBlockDay } from '../actions/blocks';
 import { saveTransactions } from '../actions/transactions';
 
 const corsHeroku = "https://cors-anywhere.herokuapp.com/";
@@ -39,11 +39,11 @@ function* getBlocksAndTransactions() {
   }
 }
 
-function* getListBlocks() {
+function* getListBlocks({ payload } = Date.now()) {
   try {
-    const block = yield call(axios.get, corsHeroku + `https://blockchain.info/blocks/${Date.now()}?format=json`);
+    const block = yield call(axios.get, corsHeroku + `https://blockchain.info/blocks/${payload}?format=json`);
     const { blocks } = block.data;
-    yield put(saveBlockNowDay(blocks));
+    yield put(saveBlockDay(blocks));
   } catch (err) {
     const error = err.response.data;
     console.log(error);
@@ -58,6 +58,7 @@ function* sagas() {
   yield takeEvery("RATE_AND_BLOCKS", getBlocksAndRate);
   yield takeEvery("RATE_AND_BLOCKS", getBlocksAndTransactions);
   yield takeEvery("ALL_BLOCKS", getListBlocks);
+  yield takeEvery("BLOCKS_FOR_DAY", getListBlocks);
 }
 
 export default sagas;
