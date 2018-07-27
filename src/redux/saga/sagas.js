@@ -39,9 +39,10 @@ function* getBlocksAndTransactions() {
   }
 }
 
-function* getListBlocks({ payload } = Date.now()) {
+function* getListBlocks({ payload }) {
+  const day = payload ? payload : Date.now();
   try {
-    const block = yield call(axios.get, corsHeroku + `https://blockchain.info/blocks/${payload}?format=json`);
+    const block = yield call(axios.get, corsHeroku + `https://blockchain.info/blocks/${day}?format=json`);
     const { blocks } = block.data;
     yield put(saveBlockDay(blocks));
   } catch (err) {
