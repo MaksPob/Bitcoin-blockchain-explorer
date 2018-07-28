@@ -19,7 +19,7 @@ class Block extends Component {
       <Header />
       <div className="block">
         <div className="block__block-info">
-          <h2>Блок ..</h2>
+          <h2>Блок #{block.height}</h2>
           <table>
               <thead>
                 <tr>
@@ -27,14 +27,68 @@ class Block extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr key={block.hash}>
+                <tr key={block.tx.length}>
                   <td>Количество транзакций</td>
-                  <td>{block.size}</td>
+                  <td>{block.tx.length}</td>
+                </tr>
+                <tr key={block.height}>
+                  <td>Высота</td>
+                  <td>{block.height}</td>
+                </tr>
+                <tr key={block.time}>
+                  <td>Временная отметка</td>
+                  <td>{unixTimeFormated(block.time)}</td>
+                </tr>
+                <tr key={block.received_time + 1}>
+                  <td>Время получения</td>
+                  <td>{unixTimeFormated(block.received_time)}</td>
+                </tr>
+                <tr key={block.relayed_by}>
+                  <td>Передано по</td>
+                  <td>{block.relayed_by}</td>
+                </tr>
+                <tr key={block.bits}>
+                  <td>Биты</td>
+                  <td>{block.bits}</td>
+                </tr>
+                <tr key={block.size}>
+                  <td>Размер</td>
+                  <td>{block.size} kB</td>
+                </tr>
+                <tr key={block.nonce}>
+                  <td>Nonce (случайно перебираемое число)</td>
+                  <td>{block.nonce} kB</td>
+                </tr>
+                <tr key={block.fee}>
+                  <td>Награда за блок</td>
+                  <td>{block.fee}</td>
                 </tr>
               </tbody>
             </table>
         </div>
-        <div className="block__block"></div>
+        <div className="block__block-hash">
+        <table>
+              <thead>
+                <tr>
+                  <td>Хэши</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr key={block.hash}>
+                  <td>Хэш</td>
+                  <td>{block.hash}</td>
+                </tr>
+                <tr key={block.prev_block}>
+                  <td>Предыдущий блок</td>
+                  <td>{block.prev_block}</td>
+                </tr>
+                <tr key={block.mrkl_root}>
+                  <td>Корень Меркле</td>
+                  <td>{block.mrkl_root}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
       </div>
       <div className="transactions-block"></div>
     </div>

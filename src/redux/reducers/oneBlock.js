@@ -1,4 +1,8 @@
-const initialState = [];
+const initialState = {
+  tx: 0,
+  time: 0,
+  received_time: 0
+};
 
 const oneBlock = (state = initialState, action) => {
   switch (action.type) {
