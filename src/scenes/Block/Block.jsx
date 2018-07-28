@@ -17,9 +17,9 @@ class Block extends Component {
   return (
     <div>
       <Header />
+      <h2>Блок #{block.height}</h2>
       <div className="block">
-        <div className="block__block-info">
-          <h2>Блок #{block.height}</h2>
+        <div className="block__table-info">
           <table>
               <thead>
                 <tr>
@@ -57,7 +57,7 @@ class Block extends Component {
                 </tr>
                 <tr key={block.nonce}>
                   <td>Nonce (случайно перебираемое число)</td>
-                  <td>{block.nonce} kB</td>
+                  <td>{block.nonce}</td>
                 </tr>
                 <tr key={block.fee}>
                   <td>Награда за блок</td>
@@ -66,8 +66,8 @@ class Block extends Component {
               </tbody>
             </table>
         </div>
-        <div className="block__block-hash">
-        <table>
+        <div className="block__table-hash">
+            <table>
               <thead>
                 <tr>
                   <td>Хэши</td>
@@ -90,7 +90,9 @@ class Block extends Component {
             </table>
         </div>
       </div>
-      <div className="transactions-block"></div>
+      <div className="transactions-block">
+        {console.log(block.tx)}
+      </div>
     </div>
   );
   }
