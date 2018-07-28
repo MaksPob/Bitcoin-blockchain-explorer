@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
 import { timeFormated, unixTimeFormated } from '../../utils/moment';
 import Header from '../../components/Header/Header.jsx';
-import { getBlocksDay } from '../../redux/actions/blocks';
+import { getBlocksDay, getOneBlock } from '../../redux/actions/blocks';
 
 class ListBlocks extends Component {
   state = {
     time: Date.now()
   };
 
+  componentDidMount() {
+    const { getBlocksDay } = this.props;
+    const { time } = this.state;
+    getBlocksDay(time);
+  }
+
   render() {
-  const { allBlocks, getBlocksDay } = this.props;
+  const { allBlocks, getBlocksDay, getOneBlock } = this.props;
   const { time } = this.state;
   return (
     <div>
@@ -54,7 +61,9 @@ class ListBlocks extends Component {
                     <tr key={block.hash}>
                       <td>{block.height}</td>
                       <td>{unixTimeFormated(block.time)}</td>
-                      <td onClick={()=> console.log(block.height)}>{block.hash}</td>
+                      <td>
+                        <Link to={`/block/${block.hash}`} onClick={() => getOneBlock(block.hash)}>{block.hash}</Link>
+                      </td>
                     </tr>
                   );
                 })
@@ -75,6 +84,7 @@ export default connect(
     allBlocks: state.allBlocks
   }),
   dispatch => bindActionCreators({
-    getBlocksDay
+    getBlocksDay,
+    getOneBlock
   }, dispatch)
 )(ListBlocks);

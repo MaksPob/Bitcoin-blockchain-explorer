@@ -30,10 +30,13 @@
        border-bottom: 1px solid black;
       }
       & > td:nth-child(3) {
-        color: rgb(0, 183, 255);
         cursor: pointer;
         padding: 2px 0;
         border-bottom: 1px solid black;
+        & > a {
+          color: rgb(0, 183, 255);
+          text-decoration: none;
+        }
       }
     }
     & > thead > tr {

@@ -1,8 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import { saveRate } from '../actions/rate';
-import { saveBlocks, saveBlockDay } from '../actions/blocks';
+import { saveBlocks, saveBlockDay, saveOneBlock } from '../actions/blocks';
 import { saveTransactions } from '../actions/transactions';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 const corsHeroku = "https://cors-anywhere.herokuapp.com/";
 
@@ -51,7 +52,20 @@ function* getListBlocks({ payload }) {
   }
 }
 
+function* getOneBlock({ payload }) {
+  try {
+    const oneBlock = yield call(axios.get, corsHeroku + `https://blockchain.info/rawblock/${payload}`);
+    const block = oneBlock.data;
+    yield put(saveOneBlock(block));
+  } catch (err) {
+    const error = err.response.data;
+    console.log(error);
+  }
+}
 
+function* handleLocationChange({ payload }) {
+  console.log(payload);
+}
 
 
 
@@ -60,6 +74,8 @@ function* sagas() {
   yield takeEvery("RATE_AND_BLOCKS", getBlocksAndTransactions);
   yield takeEvery("ALL_BLOCKS", getListBlocks);
   yield takeEvery("BLOCKS_FOR_DAY", getListBlocks);
+  yield takeEvery("ONE_BLOCK", getOneBlock);
+  yield takeEvery(LOCATION_CHANGE, handleLocationChange)
 }
 
 export default sagas;

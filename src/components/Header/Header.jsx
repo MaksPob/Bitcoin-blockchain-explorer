@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import './styles.scss';
 
 import { isString } from '../../utils/validation';
-import { getListBlocks } from '../../redux/actions/blocks';
 
 class Header extends Component {
   state = {
@@ -51,7 +50,7 @@ class Header extends Component {
             <Link to='/graphic' onClick={() => console.log("hello!!!")}>Daily chart</Link>
           </div>
           <div className={toggleBar ? "navbar__btnChart_visible" : "navbar__btnChart"}>
-            <Link to='/listBlocks' onClick={() => getListBlocks()}>List blocks</Link>
+            <Link to='/listBlocks'>List blocks</Link>
           </div>
           <div className={toggleBar ? "navbar__search_visible" : "navbar__search"}>
             <button onClick={() => this.changeSearchState()}><i className="fa fa-search" aria-hidden="true"></i></button>
@@ -71,9 +70,7 @@ class Header extends Component {
 
 export default connect(
   state => ({ 
-    
   }),
   dispatch => bindActionCreators({
-    getListBlocks
   }, dispatch)
 )(Header);
