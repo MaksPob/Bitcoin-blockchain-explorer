@@ -17,7 +17,7 @@ class Block extends Component {
   return (
     <div>
       <Header />
-      <h2>Блок #{block.height}</h2>
+      <h1>Блок #{block.height}</h1>
       <div className="block">
         <div className="block__table-info">
           <table>
@@ -90,7 +90,31 @@ class Block extends Component {
             </table>
         </div>
       </div>
+      <h2>Транзакции</h2>
+      <div className="transaction-pagination">
+        <div className="transaction-pagination__back">
+              <button onClick={()=> { 
+              }}>{'<< '}-50</button>
+        </div>
+        <div className="transaction-pagination__next">
+              <button onClick={()=> { 
+              }}>+50{' >>'}</button>
+        </div>
+      </div>
       <div className="transactions-block">
+        <table>
+          <thead>
+            <tr>
+              <td>Хэши</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr key={block.hash}>
+              <td>Хэш</td>
+              <td>{block.hash}</td>
+            </tr>
+          </tbody>
+        </table>
         {console.log(block.tx)}
       </div>
     </div>

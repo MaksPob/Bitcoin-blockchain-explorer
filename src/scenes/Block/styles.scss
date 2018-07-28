@@ -49,7 +49,24 @@ padding-right: 20px;
 }
 
 div {
-  & > h2 {
+  & > .transaction-pagination {
+    justify-content: center;
+    display: flex;
+    & > .transaction-pagination__back > button {
+      background-color: green; // вынести в общий файл
+      color: white;
+      border: none;
+      border-radius: 3px;
+      margin-right: 50px;
+    }
+    & > .transaction-pagination__next > button {
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    }
+  }
+  & > h1 {
     padding-left: 30px;
     color: rgb(82, 82, 82);
   }
