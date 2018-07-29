@@ -1,0 +1,66 @@
+@mixin titleTables {
+  padding-right: 20px;
+    & > table {
+      border-collapse: collapse;
+      & > thead > tr {
+        & > td {
+          font-weight: bold;
+          color: rgb(82, 82, 82);
+          padding-bottom: 2px;
+          border-bottom: 1px solid rgb(134, 134, 134);
+        }
+      }  
+    }
+}
+
+@mixin bodyTables {
+  & > table {
+    & > tbody  {
+      & > tr:nth-child(even) {
+        & > td:nth-child(odd) {
+          color: rgb(82, 82, 82);
+          background-color: rgb(235, 235, 235);
+          padding-bottom: 2px;
+          padding-top: 2px;
+          border-bottom: 1px solid rgb(134, 134, 134);
+          border-top: 1px solid rgb(134, 134, 134);
+        }
+        & > td:nth-child(even) {
+          padding-bottom: 2px;
+          padding-top: 2px;
+        }
+      }
+      & > tr:nth-child(even) {
+        & > td:nth-child(even) {
+          background-color: rgb(235, 235, 235);
+          color: rgb(82, 82, 82);
+          padding-bottom: 2px;
+          padding-top: 2px;
+          border-bottom: 1px solid rgb(134, 134, 134);
+          border-top: 1px solid rgb(134, 134, 134);
+        }
+        & > td:nth-child(odd) {
+          padding-bottom: 2px;
+          padding-top: 2px;
+        } 
+      }
+    }
+  }
+}
+
+
+
+.block__table-info {
+  @include titleTables;
+  @include bodyTables;
+}
+
+
+
+@media screen and (max-width: 480px) {
+  .block__table-info {
+    overflow-x: hidden;
+    @include titleTables;
+    @include bodyTables;
+  }
+}
