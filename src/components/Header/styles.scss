@@ -53,9 +53,12 @@
     }
   }
   & > .navbar__logo {
-    color: white;
-    font-weight: bold;
     display: flex;
+    & > a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
     & > div {
       display: none;
     }

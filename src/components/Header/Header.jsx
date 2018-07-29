@@ -39,7 +39,8 @@ class Header extends Component {
     const { getListBlocks } = this.props;
       return (
         <header className = "navbar">
-          <div className = "navbar__logo">BLOCKCHAIN
+          <div className = "navbar__logo">
+            <Link to='/'>BLOCKCHAIN</Link>
             <div>
               <button onClick={() => this.changeBarState()}>
                 <i className="fa fa-bars" aria-hidden="true"></i>

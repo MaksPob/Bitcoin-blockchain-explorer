@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
@@ -39,7 +40,9 @@ class Block extends Component {
           <table key={i} className="table__table">
           <thead>
             <tr>
-              <td>{elem.hash /*ссылка на страницу с транзакцией*/}</td>
+              <td>
+                <Link to={`/transaction/${elem.hash}`}>{elem.hash}</Link>
+              </td>
               <td></td>
               <td>{unixTimeFormated(elem.time)}</td>
             </tr>

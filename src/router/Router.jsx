@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from '../scenes/Home/Home.jsx';
 import ListBlocks from '../scenes/ListBlocks/ListBlocks.jsx';
 import Block from '../scenes/Block/Block.jsx';
+import Transaction from '../scenes/Transaction/Transaction.jsx';
 
 import { store } from '../redux/store/store';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
@@ -19,6 +20,7 @@ const Router = () => (
       <Route path='/graphic' component={Home}/>
       <Route path='/listBlocks' component={ListBlocks}/>
       <Route path='/block/:number' component={Block}/>
+      <Route path='/transaction/:number' component={Transaction}/>
     </Switch>
   </ConnectedRouter>
 );
