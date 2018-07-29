@@ -1,5 +1,5 @@
 const initialState = {
-  tx: 0,
+  tx: [],
   time: 0,
   received_time: 0
 };

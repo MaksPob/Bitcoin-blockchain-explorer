@@ -5,6 +5,12 @@
   border-radius: 3px;
 }
 
+@mixin tdStyles {
+  border-bottom: 1px solid rgb(134, 134, 134);
+  border-top: 1px solid rgb(134, 134, 134);
+  background-color: rgb(235, 235, 235);
+}
+
 
 div {
   & > .transaction-pagination {
@@ -18,13 +24,46 @@ div {
       @include paginationButtonStyles;
     }
   }
-  & > h1 {
+  & > h1, h2 {
     padding-left: 30px;
     color: rgb(82, 82, 82);
   }
   & > .block {
     display: flex;
     padding: 0 30px;
+  }
+  & > .transactions-block { // вынести в 1 файл
+    padding: 0 30px;
+    & > .table__table {
+      border-collapse: collapse;
+      & > tbody > tr {
+        & > td:nth-child(2) {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }  
+     & > thead > tr {
+        & > td:nth-child(1) {
+          padding-bottom: 2px;
+          padding-top: 2px;
+          cursor: pointer;
+          color: rgb(0, 183, 255);
+          @include tdStyles;
+        }
+        & > td:nth-child(2) {
+          padding: 2px 20px;
+          color: rgb(82, 82, 82);
+          @include tdStyles;
+        }
+        & > td:nth-child(3) {
+          color: rgb(82, 82, 82);
+          font-weight: bold;
+          padding-bottom: 2px;
+          padding-top: 2px;
+          @include tdStyles;
+        }
+      }  
+    }
   }
 }
 
@@ -34,5 +73,24 @@ div {
   div > .block {
     display: flex;
     flex-direction: column;
+  }
+  div > .transactions-block {
+    padding: 0 30px;
+    overflow-x: hidden;
+    & > .table__table {
+      
+      border-collapse: collapse;
+     & > thead > tr {
+        & > td:nth-child(1) {
+          overflow-x: hidden;
+        }
+        & > td:nth-child(2) {
+    
+        }
+        & > td:nth-child(3) {
+  
+        }
+      } 
+    } 
   }
 }

@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 
 import './styles.scss';
 
-import { timeFormated, unixTimeFormated } from '../../utils/moment';
-import { getOneBlock } from '../../redux/actions/blocks';
+import { unixTimeFormated } from '../../utils/moment';
+
 
 import Header from '../../components/Header/Header.jsx';
 import BlockTableInfo from '../../components/BlockTableInfo/BlockTableInfo.jsx';
@@ -24,7 +24,6 @@ class Block extends Component {
         <BlockTableHash />
       </div>
       <h2>Транзакции</h2>
-      {console.log(block.tx)}
       <div className="transaction-pagination">
         <div className="transaction-pagination__back">
               <button onClick={()=> {
@@ -36,19 +35,36 @@ class Block extends Component {
         </div>
       </div>
       <div className="transactions-block">
-        <table>
+        {block.tx.map((elem, i) =>
+          <table key={i} className="table__table">
           <thead>
             <tr>
-              <td>Хэши</td>
+              <td>{elem.hash /*ссылка на страницу с транзакцией*/}</td>
+              <td></td>
+              <td>{unixTimeFormated(elem.time)}</td>
             </tr>
           </thead>
           <tbody>
-            <tr key={block.hash}>
-              <td>Хэш</td>
-              <td>{block.hash}</td>
+            <tr>
+              <td>{elem.inputs.map((el, i) => {
+                return el.prev_out
+                ? <div key={i}>{el.prev_out.addr}</div> 
+                : <div key={i}>{"Нет входных данных (новые монеты)"}</div>
+              })}</td>
+              <td>{elem.out.map((el, i) => {
+                return el.addr
+                ? <div key={i}>{el.addr}</div> 
+                : <div key={i}>{"Невозможно декодировать выходной адрес "}</div>
+              })}</td>
+              <td>{elem.out.map((el, i) => {
+                return el
+                ? <div key={i}>{el.value}</div> 
+                : <div key={i}>{0}</div>
+              })}</td>
             </tr>
           </tbody>
         </table>
+        )}
       </div>
     </div>
   );
@@ -61,6 +77,5 @@ export default connect(
     block: state.oneBlock
   }),
   dispatch => bindActionCreators({
-    getOneBlock
   }, dispatch)
 )(Block);

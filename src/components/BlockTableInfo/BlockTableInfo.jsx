@@ -18,7 +18,7 @@ const BlockTableInfo = (props) => {
           </tr>
         </thead>
         <tbody>
-          <tr key={block.tx.length}>
+          <tr key={block.hash + "random"}>
             <td>Количество транзакций</td>
             <td>{block.tx.length}</td>
           </tr>

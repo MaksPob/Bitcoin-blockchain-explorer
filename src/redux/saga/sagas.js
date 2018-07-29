@@ -63,9 +63,9 @@ function* getOneBlock({ payload }) {
   }
 }
 
-function* handleLocationChange({ payload }) {
-  console.log(payload);
-}
+// function* handleLocationChange({ payload }) {
+//   console.log(payload);
+// }
 
 
 
@@ -75,7 +75,7 @@ function* sagas() {
   yield takeEvery("ALL_BLOCKS", getListBlocks);
   yield takeEvery("BLOCKS_FOR_DAY", getListBlocks);
   yield takeEvery("ONE_BLOCK", getOneBlock);
-  yield takeEvery(LOCATION_CHANGE, handleLocationChange)
+  //yield takeEvery(LOCATION_CHANGE, handleLocationChange)
 }
 
 export default sagas;

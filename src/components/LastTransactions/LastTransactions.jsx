@@ -25,7 +25,7 @@ const LastTransactions = (props) => {
               return (
                 <tr key={transaction.hash}>
                   <td>{transaction.hash}</td>
-                  <td>{summ(transaction.out)}</td>
+                  <td>{isNaN(summ(transaction.out)) ? 0 : summ(transaction.out)}</td>
                 </tr>
               );
             })
