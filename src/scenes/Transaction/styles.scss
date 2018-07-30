@@ -1,0 +1,70 @@
+@mixin tdStyles {
+  border-bottom: 1px solid rgb(134, 134, 134);
+  border-top: 1px solid rgb(134, 134, 134);
+  background-color: rgb(235, 235, 235);
+}
+  
+  
+  div {
+    & > h1 {
+      padding-left: 30px;
+      color: rgb(82, 82, 82);
+    }
+    & > .table__transaction-fullInfo {
+      display: flex;
+      padding: 30px;
+      margin-top: 150px;
+    }
+    & > .table__transaction-info-in-out { 
+      padding: 0 30px;
+      & > table {
+        border-collapse: collapse;
+        & > tbody > tr {
+          & > td:nth-child(2) {
+            padding-left: 20px;
+            padding-right: 20px;
+          }
+        }  
+       & > thead > tr {
+          & > td:nth-child(1) {
+            padding-bottom: 2px;
+            padding-top: 2px;
+            @include tdStyles;
+            & > a {
+              color: rgb(0, 183, 255);
+              text-decoration: none;
+              cursor: pointer;
+            }
+          }
+          & > td:nth-child(2) {
+            padding: 2px 20px;
+            color: rgb(82, 82, 82);
+            @include tdStyles;
+          }
+          & > td:nth-child(3) {
+            color: rgb(82, 82, 82);
+            font-weight: bold;
+            padding-bottom: 2px;
+            padding-top: 2px;
+            @include tdStyles;
+          }
+        }  
+      }
+    }
+  }
+  
+  
+  
+  @media screen and (max-width: 480px) {
+    div > .table__transaction-fullInfo {
+      display: flex;
+      flex-direction: column;
+    }
+    div > .table__transaction-info-in-out {
+      padding: 0 0;
+      overflow-x: hidden;
+      & > table {
+        border-collapse: collapse;
+      } 
+    }
+  }
