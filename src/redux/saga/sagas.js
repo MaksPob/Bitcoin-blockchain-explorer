@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import { saveRate } from '../actions/rate';
-import { saveBlocks, saveBlockDay, saveOneBlock } from '../actions/blocks';
+import { saveBlocks, saveBlockDay, saveOneBlock, saveBlockByHeight } from '../actions/blocks';
 import { saveTransactions, saveOneTransaction } from '../actions/transactions';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
@@ -74,6 +74,17 @@ function* getOneTransaction({ payload }) {
   }
 }
 
+function* getBlockByHeight({ payload }) {
+  try {
+    const oneBlock = yield call(axios.get, corsHeroku + `https://blockchain.info/block-height/${payload}?format=json`);
+    const block = oneBlock.data;
+    yield put(saveBlockByHeight(block));
+    console.log(block)
+  } catch (err) {
+    const error = err.response.data;
+    console.log(error);
+  }
+}
 
 
 // function* handleLocationChange({ payload }) {
@@ -89,6 +100,7 @@ function* sagas() {
   yield takeEvery("BLOCKS_FOR_DAY", getListBlocks);
   yield takeEvery("ONE_BLOCK", getOneBlock);
   yield takeEvery("ONE_TRANSACTION", getOneTransaction);
+  yield takeEvery("BLOCK_BY_HEIGHT", getBlockByHeight);
   //yield takeEvery(LOCATION_CHANGE, handleLocationChange)
 }
 

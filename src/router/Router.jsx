@@ -5,13 +5,12 @@ import Home from '../scenes/Home/Home.jsx';
 import ListBlocks from '../scenes/ListBlocks/ListBlocks.jsx';
 import Block from '../scenes/Block/Block.jsx';
 import Transaction from '../scenes/Transaction/Transaction.jsx';
+import BlockByHeight from '../scenes/BlockByHeight/BlockByHeight.jsx';
 
 import { store } from '../redux/store/store';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 
-const history = createHistory();
-export const middleware = routerMiddleware(history);
 
 const Router = () => (
   <ConnectedRouter history={history}>
@@ -20,9 +19,13 @@ const Router = () => (
       <Route path='/graphic' component={Home}/>
       <Route path='/listBlocks' component={ListBlocks}/>
       <Route path='/block/:number' component={Block}/>
-      <Route path='/transaction/:number' component={Transaction}/>
+      <Route path='/transaction/:hash' component={Transaction}/>
+      <Route path='/block-height/:number' component={BlockByHeight}/>
     </Switch>
   </ConnectedRouter>
 );
 
 export default Router;
+
+export const history = createHistory();
+export const middleware = routerMiddleware(history);

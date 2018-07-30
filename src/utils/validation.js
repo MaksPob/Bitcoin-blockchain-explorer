@@ -1,4 +1,4 @@
-const isString = (num) => parseInt(num) ? num : "isString";
+const isString = (num) => typeof num == 'number' || +num ? num : "isString";
 
 
 export {

@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 
 import './styles.scss';
+
+import { getOneTransaction } from '../../redux/actions/transactions';
+import { getBlockByHeight } from '../../redux/actions/blocks';
+import { history } from '../../router/Router.jsx';
 
 import { isString } from '../../utils/validation';
 
 class Header extends Component {
   state = {
-    height: '',
-    hash:'',
+    heightOrHash: '',
     toggleSearch: false,
     toggleBar: false
   };
@@ -27,11 +31,22 @@ class Header extends Component {
 
   setHeightOrHash = ({ target: { value} }) => {
     const typeVal = isString(value);
-    typeVal === "isString" ? this.setState({ hash: value }) : this.setState({ height: value });
+    typeVal === "isString" ? this.setState({ heightOrHash: value }) : this.setState({ heightOrHash: value });
   }
 
   findByHeightOrHash = ({ key }) => {
-    key === "Enter" ? console.log(this.state) : false;
+    const { heightOrHash } = this.state;
+    const { getOneTransaction, getBlockByHeight } = this.props;
+    if (key === "Enter") {
+      if (isString(heightOrHash) === "isString") {
+        getOneTransaction(heightOrHash);
+        history.push(`/transaction/${heightOrHash}`);
+      }  
+      if (isString(heightOrHash) == +heightOrHash) {
+        getBlockByHeight(heightOrHash);
+        history.push(`/block-height/${heightOrHash}`);
+      }
+    }
   }
 
   render() {
@@ -60,7 +75,7 @@ class Header extends Component {
                   className = "search__input"
                   placeholder = "Lookup blocks, transactions, hash..."
                   onChange = {(e) => this.setHeightOrHash(e)}
-                  onKeyPress = {(e) => this.findByHeightOrHash(e)}
+                  onKeyDown = {(e) => this.findByHeightOrHash(e)}
               />
             }
           </div>
@@ -70,8 +85,10 @@ class Header extends Component {
 }
 
 export default connect(
-  state => ({ 
+  state => ({
   }),
   dispatch => bindActionCreators({
+    getOneTransaction,
+    getBlockByHeight,
   }, dispatch)
 )(Header);
