@@ -7,7 +7,7 @@ import './styles.scss';
 
 import { timeFormated, unixTimeFormated } from '../../utils/moment';
 import Header from '../../components/Header/Header.jsx';
-import { getBlocksDay, getOneBlock } from '../../redux/actions/blocks';
+import { getBlocksDay, getOneBlock, getBlockByHeight } from '../../redux/actions/blocks';
 
 class ListBlocks extends Component {
   state = {
@@ -59,7 +59,9 @@ class ListBlocks extends Component {
                 allBlocks.map((block) => {
                   return (
                     <tr key={block.hash}>
-                      <td>{block.height}</td>
+                      <td>
+                        <Link to={`/block-height/${block.height}`} onClick={() => getBlockByHeight(block.height)}>{block.height}</Link>
+                      </td>
                       <td>{unixTimeFormated(block.time)}</td>
                       <td>
                         <Link to={`/block/${block.hash}`} onClick={() => getOneBlock(block.hash)}>{block.hash}</Link>
