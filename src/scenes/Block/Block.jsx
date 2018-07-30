@@ -7,7 +7,7 @@ import './styles.scss';
 
 import { unixTimeFormated } from '../../utils/moment';
 
-
+import { getOneTransaction } from '../../redux/actions/transactions';
 import Header from '../../components/Header/Header.jsx';
 import BlockTableInfo from '../../components/BlockTableInfo/BlockTableInfo.jsx';
 import BlockTableHash from '../../components/BlockTableHash/BlockTableHash.jsx';
@@ -15,7 +15,7 @@ import BlockTableHash from '../../components/BlockTableHash/BlockTableHash.jsx';
 class Block extends Component {
 
   render() {
-  const { block } = this.props;
+  const { block, getOneTransaction } = this.props;
   return (
     <div>
       <Header />
@@ -41,7 +41,7 @@ class Block extends Component {
           <thead>
             <tr>
               <td>
-                <Link to={`/transaction/${elem.hash}`}>{elem.hash}</Link>
+                <Link to={`/transaction/${elem.hash}`} onClick={() => getOneTransaction(elem.hash)}>{elem.hash}</Link>
               </td>
               <td></td>
               <td>{unixTimeFormated(elem.time)}</td>
@@ -80,5 +80,6 @@ export default connect(
     block: state.oneBlock
   }),
   dispatch => bindActionCreators({
+    getOneTransaction
   }, dispatch)
 )(Block);

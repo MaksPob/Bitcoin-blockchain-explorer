@@ -6,6 +6,7 @@ import lastBlocks from './blocks';
 import transactions from './transactions';
 import allBlocks from './allBlocks';
 import oneBlock from './oneBlock';
+import oneTransaction from './oneTransaction';
 
 export default combineReducers({
   routing: routerReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
   lastBlocks,
   transactions,
   allBlocks,
-  oneBlock
+  oneBlock,
+  oneTransaction
 });
