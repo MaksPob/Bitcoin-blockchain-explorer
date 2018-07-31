@@ -7,7 +7,6 @@ import transactions from './transactions';
 import allBlocks from './allBlocks';
 import oneBlock from './oneBlock';
 import oneTransaction from './oneTransaction';
-import blockByHeight from './blockByHeight';
 
 export default combineReducers({
   routing: routerReducer,
@@ -16,6 +15,5 @@ export default combineReducers({
   transactions,
   allBlocks,
   oneBlock,
-  oneTransaction,
-  blockByHeight
+  oneTransaction
 });
