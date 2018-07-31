@@ -11,8 +11,8 @@ function* getBlocksAndRate() {
   try {
     const rates = yield call(axios.get, corsHeroku + "https://api.blockchain.info/charts/market-price?timespan=4weeks&format=json");
     const { values } = rates.data;
-    const time = values.map(el => el['x']);
-    const price = values.map(el => el['y']);
+    const time = values.map(el => (el['x']));
+    const price = values.map(el => (el['y']));
     const rate = {
       time,
       price
@@ -86,18 +86,23 @@ function* getBlockByHeight({ payload }) {
 }
 
 function* getBlocksInfo({ payload }) {
-  const getBlocks = state => state.allBlocks;
-  yield getListBlocks(Date.now());
-  const blocks = yield select(getBlocks);
-  const lastTwentyBlocks = blocks.slice(0, 4);
-  const response = yield lastTwentyBlocks.map(block => call(axios.get, corsHeroku + `https://blockchain.info/rawblock/${block.hash}`));
-  const height = response.map(({ data }) => data.height);
-  const lengthTransactions = response.map(({ data }) => data.tx.length);
-  const blocksInfo = {
-    height,
-    lengthTransactions
-  };
-  yield put(saveBlockDay(blocksInfo));
+  try {
+    const getBlocks = state => state.allBlocks;
+    yield getListBlocks(Date.now());
+    const blocks = yield select(getBlocks);
+    const lastTwentyBlocks = blocks.slice(0, 4);
+    const response = yield lastTwentyBlocks.map(block => call(axios.get, corsHeroku + `https://blockchain.info/rawblock/${block.hash}`));
+    const height = response.map(({ data }) => data.height);
+    const lengthTransactions = response.map(({ data }) => data.tx.length);
+    const blocksInfo = {
+      height,
+      lengthTransactions
+    };
+    yield put(saveBlockDay(blocksInfo));
+  } catch (err) {
+    const error = err.response.data;
+    console.log(error);
+  }
 }
 
 

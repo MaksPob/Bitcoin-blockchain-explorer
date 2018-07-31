@@ -10,7 +10,6 @@ import Header from '../../components/Header/Header.jsx';
 
 const BlockByHeight = (props) => {
   const { block } = props;
-  console.log(1111, block);
   return (
     <div>
       <Header />
