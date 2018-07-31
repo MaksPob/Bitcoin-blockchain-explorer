@@ -1,4 +1,8 @@
-const initialState = [];
+const initialState = {
+  tx: [],
+  time: Date.now(),
+  received_time: Date.now()
+};
 
   const blockByHeight = (state = initialState, action) => {
     switch (action.type) {

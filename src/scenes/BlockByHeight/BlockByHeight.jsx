@@ -13,6 +13,7 @@ const BlockByHeight = (props) => {
   return (
     <div>
       <Header />
+      <h1>Высота блока {block.height}</h1>
       <div className="blockByHeight__table-info">
       <table>
         <thead>
@@ -21,7 +22,7 @@ const BlockByHeight = (props) => {
           </tr>
         </thead>
         <tbody>
-          <tr key={block.hash + "random"}>
+          <tr key={block.hash}>
             <td>Количество транзакций</td>
             <td>{block.tx.length}</td>
           </tr>

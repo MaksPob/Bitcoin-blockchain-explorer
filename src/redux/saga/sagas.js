@@ -78,7 +78,7 @@ function* getBlockByHeight({ payload }) {
   try {
     const oneBlock = yield call(axios.get, corsHeroku + `https://blockchain.info/block-height/${payload}?format=json`);
     const { blocks } = oneBlock.data;
-    yield put(saveBlockByHeight(blocks));
+    yield put(saveBlockByHeight(blocks[0]));
   } catch (err) {
     const error = err.response.data;
     console.log(error);
