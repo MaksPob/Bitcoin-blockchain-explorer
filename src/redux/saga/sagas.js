@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { saveRate } from '../actions/rate';
 import { saveBlocks, saveBlockDay, saveOneBlock, saveBlockByHeight } from '../actions/blocks';
@@ -11,7 +11,7 @@ function* getBlocksAndRate() {
   try {
     const rates = yield call(axios.get, corsHeroku + "https://api.blockchain.info/charts/market-price?timespan=4weeks&format=json");
     const { values } = rates.data;
-    const time = values.map(el => (el['x']));
+    const time = values.map(el => el['x']);
     const price = values.map(el => el['y']);
     const rate = {
       time,
@@ -85,6 +85,21 @@ function* getBlockByHeight({ payload }) {
   }
 }
 
+function* getBlocksInfo({ payload }) {
+  const getBlocks = state => state.allBlocks;
+  yield getListBlocks(Date.now());
+  const blocks = yield select(getBlocks);
+  const lastTwentyBlocks = blocks.slice(0, 4);
+  const response = yield lastTwentyBlocks.map(block => call(axios.get, corsHeroku + `https://blockchain.info/rawblock/${block.hash}`));
+  const height = response.map(({ data }) => data.height);
+  const lengthTransactions = response.map(({ data }) => data.tx.length);
+  const blocksInfo = {
+    height,
+    lengthTransactions
+  };
+  yield put(saveBlockDay(blocksInfo));
+}
+
 
 // function* handleLocationChange({ payload }) {
 //   console.log(payload);
@@ -100,6 +115,7 @@ function* sagas() {
   yield takeEvery("ONE_BLOCK", getOneBlock);
   yield takeEvery("ONE_TRANSACTION", getOneTransaction);
   yield takeEvery("BLOCK_BY_HEIGHT", getBlockByHeight);
+  yield takeEvery("ALL_BLOCKS_INFO", getBlocksInfo);
   //yield takeEvery(LOCATION_CHANGE, handleLocationChange)
 }
 

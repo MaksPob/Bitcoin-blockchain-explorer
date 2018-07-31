@@ -63,7 +63,7 @@ class Header extends Component {
             </div>
           </div>
           <div className={toggleBar ? "navbar__btnChart_visible" : "navbar__btnChart"}>
-            <Link to='/graphic' onClick={() => console.log("hello!!!")}>Daily chart</Link>
+            <Link to='/graphic'>Daily chart</Link>
           </div>
           <div className={toggleBar ? "navbar__btnChart_visible" : "navbar__btnChart"}>
             <Link to='/listBlocks'>List blocks</Link>

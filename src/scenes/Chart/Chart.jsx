@@ -6,15 +6,16 @@ import Highcharts from 'react-highcharts';
 import Header from '../../components/Header/Header.jsx';
 import Main from '../../components/Main/Main.jsx';
 
-import { getRateAndBlocks } from '../../redux/actions/rate.js';
-import { arrTimeFormated } from '../../utils/moment';
+import { getBlocksDayInfo } from '../../redux/actions/blocks';
 
 class ChartLastBlocks extends Component {
   componentDidMount = () => {
-    
+    const { getBlocksDayInfo } = this.props;
+    getBlocksDayInfo();
   }
   
   render() {
+    const { allBlocks } = this.props;
     const config = {
       title: {
         text: "Blocks last 24 hours"
@@ -23,10 +24,10 @@ class ChartLastBlocks extends Component {
         defaultSeriesType: 'column'
       },
       xAxis: {
-        categories: [1,2,2,41,414]
+        categories: allBlocks.height
       },
       series: [{
-        data: [1436,7548694,313131]
+        data: allBlocks.lengthTransactions
       }]
     };
     return (
@@ -41,7 +42,9 @@ class ChartLastBlocks extends Component {
 
 export default connect(
   state => ({
+    allBlocks: state.allBlocks
   }),
   dispatch => bindActionCreators({
+    getBlocksDayInfo
   }, dispatch)
 )(ChartLastBlocks);
