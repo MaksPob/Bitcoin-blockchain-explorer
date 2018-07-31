@@ -10,11 +10,10 @@ import Header from '../../components/Header/Header.jsx';
 import BlockTableInfo from '../../components/BlockTableInfo/BlockTableInfo.jsx';
 
 const BlockByHeight = (props) => {
-  const { block } = props;
   return (
     <div>
       <Header />
-      <h1>Высота блока {block.height}</h1>
+      <h1>Данные блока</h1>
       <BlockTableInfo />
     </div>
   );
@@ -23,7 +22,6 @@ const BlockByHeight = (props) => {
 
 export default connect(
   state => ({
-    block: state.blockByHeight
   }),
   dispatch => bindActionCreators({
   }, dispatch)
