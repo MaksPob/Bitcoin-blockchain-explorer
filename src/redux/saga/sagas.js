@@ -3,8 +3,8 @@ import axios from 'axios';
 import { saveRate } from '../actions/rate';
 import { saveBlocks, saveBlockDay, saveOneBlock } from '../actions/blocks';
 import { saveTransactions, saveOneTransaction } from '../actions/transactions';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
+import { socketNewBlocks, socketNewTransactions } from '../../services/websocket';
 const corsHeroku = "https://cors-anywhere.herokuapp.com/";
 
 function* getBlocksAndRate() {
@@ -105,14 +105,39 @@ function* getBlocksInfo({ payload }) {
   }
 }
 
+function* socketInit() {
+  try {
+    yield socketNewTransactions.init();
+    yield socketNewTransactions.open({"op":"unconfirmed_sub"});
+    yield socketNewTransactions.message();
 
-// function* handleLocationChange({ payload }) {
-//   console.log(payload);
-// }
+    yield socketNewBlocks.init();
+    yield socketNewBlocks.open({"op":"blocks_sub"});
+    yield socketNewBlocks.message();
+  } catch (err) {
+    console.log(err);
+  }
+}
 
+function* getNewBlock({ payload }) {
+  const getBlocks = state => state.lastBlocks;
+  const blocks = yield select(getBlocks);
+  const listBlocks = [ payload, ...blocks ];
+  const newList = listBlocks.slice(0, 10)
+  yield put(saveBlocks(newList));
+}
+
+function* getNewTransactions({ payload }) {
+  const getTransactions = state => state.transactions;
+  const transactions = yield select(getTransactions);
+  const listTransactions = [ payload, ...transactions ];
+  const newList = listTransactions.slice(0, 10)
+  yield put(saveTransactions(newList));
+}
 
 
 function* sagas() {
+  yield socketInit();
   yield takeEvery("RATE_AND_BLOCKS", getBlocksAndRate);
   yield takeEvery("RATE_AND_BLOCKS", getBlocksAndTransactions);
   yield takeEvery("ALL_BLOCKS", getListBlocks);
@@ -121,7 +146,8 @@ function* sagas() {
   yield takeEvery("ONE_TRANSACTION", getOneTransaction);
   yield takeEvery("BLOCK_BY_HEIGHT", getBlockByHeight);
   yield takeEvery("ALL_BLOCKS_INFO", getBlocksInfo);
-  //yield takeEvery(LOCATION_CHANGE, handleLocationChange)
+  yield takeEvery("NEW_BLOCK", getNewBlock);
+  yield takeEvery("NEW_TRANSACTIONS", getNewTransactions);
 }
 
 export default sagas;
