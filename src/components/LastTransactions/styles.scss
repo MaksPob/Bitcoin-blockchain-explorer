@@ -3,6 +3,7 @@
       padding: 10px 10px;
       overflow-x: auto;
       & > table {
+        table-layout: fixed;
         border-collapse: collapse;
         & > thead > tr {
           border-bottom: 2px solid black;

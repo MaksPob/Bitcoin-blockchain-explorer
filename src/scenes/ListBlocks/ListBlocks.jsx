@@ -55,7 +55,7 @@ class ListBlocks extends Component {
                 </tr>
               </thead>
               <tbody>
-                { 
+                {Array.isArray(allBlocks) &&
                 allBlocks.map((block) => {
                   return (
                     <tr key={block.hash}>
