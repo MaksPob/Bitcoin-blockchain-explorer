@@ -63,8 +63,3 @@ export default connect(
   dispatch => bindActionCreators({
   }, dispatch)
 )(Transaction);
-
-// 2 поиска ( 1 добавить поиск блока по хэйт)
-
-// страница с графиком блоков за 24 часа
-// сокеты
