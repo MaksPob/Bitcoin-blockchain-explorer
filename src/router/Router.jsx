@@ -10,7 +10,7 @@ import ChartLastBlocks from '../scenes/Chart/Chart.jsx';
 
 import { store } from '../redux/store/store';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 
 
 const Router = () => (
@@ -28,5 +28,5 @@ const Router = () => (
 
 export default Router;
 
-export const history = createHistory();
+export const history = createBrowserHistory();
 export const middleware = routerMiddleware(history);

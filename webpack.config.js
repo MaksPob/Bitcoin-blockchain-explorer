@@ -10,7 +10,7 @@ module.exports = {
   mode: 'none',
   entry: "./index.jsx",
   output:{
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'docs'),
     filename: "bundle.js"
   },
   plugins: [
@@ -22,10 +22,9 @@ module.exports = {
           test: /\.(js|jsx)$/,
           exclude: /(node_modules)/,
           loader: "babel-loader",
-            options:{
-              presets:["es2015", "env", "react", "stage-0"],
-              plugins: ["transform-es2015-modules-commonjs", "transform-regenerator", "transform-runtime"]
-            },
+          query: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
         },
         {
           test: /\.scss$/,

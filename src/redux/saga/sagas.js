@@ -92,6 +92,7 @@ function* getBlocksInfo({ payload }) {
     const blocks = yield select(getBlocks);
     const lastTwentyBlocks = blocks.slice(0, 4);
     const response = yield lastTwentyBlocks.map(block => call(axios.get, corsHeroku + `https://blockchain.info/rawblock/${block.hash}`));
+    console.log(1111, response)
     const height = response.map(({ data }) => data.height);
     const lengthTransactions = response.map(({ data }) => data.tx.length);
     const blocksInfo = {
