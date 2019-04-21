@@ -16,12 +16,12 @@ import { createBrowserHistory } from 'history';
 const Router = () => (
   <ConnectedRouter history={history}>
     <Switch>
-      <Route exact path='/' component={Home}/>
       <Route path='/graphic' component={ChartLastBlocks}/>
       <Route path='/listBlocks' component={ListBlocks}/>
       <Route path='/block/:number' component={Block}/>
       <Route path='/transaction/:hash' component={Transaction}/>
       <Route path='/block-height/:number' component={BlockByHeight}/>
+      <Route path='/' component={Home}/>
     </Switch>
   </ConnectedRouter>
 );

@@ -3,29 +3,31 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const HTMLPlugin = new HtmlWebpackPlugin({
-  template: "./index.html"
+  template: "./index.html",
+  filename: "./index.html"
 });
 
 module.exports = {
   mode: 'none',
   entry: "./index.jsx",
-  output:{
-    path: path.resolve(__dirname, 'docs'),
-    filename: "bundle.js"
+  output: {
+    path: path.join(__dirname, "/docs"),
+    filename: "./bundle.js"
   },
   plugins: [
-    HTMLPlugin
+    HTMLPlugin,
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(require('./package.json').version),
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+  }),
   ],
   module: {
     rules: [
-        {
-          test: /\.(js|jsx)$/,
-          exclude: /(node_modules)/,
-          loader: "babel-loader",
-          query: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      },
         {
           test: /\.scss$/,
           use: [

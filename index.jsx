@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './src/App.jsx';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 
-
+const prod = process.env.NODE_ENV;
 ReactDOM.render((
-  <BrowserRouter>
+  <HashRouter>
       <App />
-  </BrowserRouter>
+  </HashRouter>
   ),document.getElementById('root')
 );
